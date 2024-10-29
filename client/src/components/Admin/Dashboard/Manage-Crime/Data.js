@@ -1,0 +1,16 @@
+export const Data = [
+    {sn: "1", id: "4392559911", name: "Agro Company Limited", address: "	John 12 Plaza Lugbe Road"},
+    {sn: "2", id: "4392559911", name: "Agro Company Limited", address: "	John 12 Plaza Lugbe Road"},
+    {sn: "3", id: "4392559911", name: "Agro Company Limited", address: "	John 12 Plaza Lugbe Road"},
+    {sn: "4", id: "4392559911", name: "Agro Company Limited", address: "	John 12 Plaza Lugbe Road"},
+    {sn: "5", id: "4392559911", name: "Agro Company Limited", address: "	John 12 Plaza Lugbe Road"},
+    {sn: "6", id: "4392559911", name: "Agro Company Limited", address: "	John 12 Plaza Lugbe Road"},
+    {sn: "7", id: "4392559911", name: "Agro Company Limited", address: "	John 12 Plaza Lugbe Road"},
+    {sn: "8", id: "4392559911", name: "Agro Company Limited", address: "	John 12 Plaza Lugbe Road"},
+    {sn: "9", id: "4392559911", name: "Agro Company Limited", address: "	John 12 Plaza Lugbe Road"},
+    {sn: "10", id: "4392559911", name: "Agro Company Limited", address: "	John 12 Plaza Lugbe Road"},
+    {sn: "11", id: "4392559911", name: "Agro Company Limited", address: "	John 12 Plaza Lugbe Road"},
+    {sn: "12", id: "4392559911", name: "Agro Company Limited", address: "	John 12 Plaza Lugbe Road"},
+    {sn: "13", id: "4392559911", name: "Agro Company Limited", address: "	John 12 Plaza Lugbe Road"},
+    {sn: "14", id: "4392559911", name: "Agro Company Limited", address: "	John 12 Plaza Lugbe Road"},
+]

@@ -2,13 +2,14 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv'
 import cors from 'cors'
+import morgan from 'morgan';
 import routes from './crime/crime.mjs';
 dotenv.config()
 
 // defining the root
 
 const app = express();
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
 // connect to database
 mongoose.connect("mongodb://localhost:27017/Crime-sys").then(() =>{
@@ -22,13 +23,16 @@ mongoose.connect("mongodb://localhost:27017/Crime-sys").then(() =>{
 
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
-app.use(cors())
+app.use(cors({credentials: true, origin: "http://localhost:5173"}))
+app.use(morgan('tiny'))
 
 // defining routes
 
 
 app.use(routes)
-
+app.get('/api/crime', (req, res) =>{
+    res.send('Hello world')
+})
 
 
 

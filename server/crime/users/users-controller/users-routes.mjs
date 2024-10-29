@@ -1,14 +1,12 @@
 import {Router} from 'express'
 import * as controller from './users-controller.mjs'
-import {validationResult,  body, checkSchema} from 'express-validator'
-import { crimeValidator } from './validate-crime.mjs';
 
 const usersRout = Router();
 
 usersRout.route('/user/register').post(controller.registerUsers)
-usersRout.route('/user/login').post(controller.verifyUser, controller.userLogin)
+usersRout.route('/user/login').post(controller.userLogin)
 usersRout.route('/user/update/:id').put(controller.updateUser)
-usersRout.route('/user/report').post(controller.reportCrime)
+usersRout.route('/user/report').post(controller.verifyUser, controller.reportCrime)
 
 
 

@@ -3,6 +3,7 @@ import Admin from "../schema/admin-schema.mjs";
 import jwt from "jsonwebtoken";
 import ENV from "../../../config.js";
 import Users from "../../users/users-controller/users-schema.mjs";
+import Crimes from "../../users/crime-schema/crime-schema.mjs";
 
 // find admin
 
@@ -39,9 +40,9 @@ export const adminLogin = async (req, res) => {
   const { username, password } = req.body;
   try {
     const findAdmin = await Admin.findOne({ username });
-    if (!findAdmin) return res.status(404).send("user not found");
+    if (!findAdmin) return res.status(404).json("user not found");
     if (!comparePassword(password, findAdmin.password))
-      return res.status(404).send("Invalid Credentials");
+      return res.status(404).json("Invalid Credentials");
     const token = jwt.sign(
       {
         adminId: findAdmin._id,
@@ -56,15 +57,41 @@ export const adminLogin = async (req, res) => {
   }
 };
 
+// get admin
+
+export async function getAdmin (req, res) {
+  try {
+    const findAdmin = await Admin.find().select('-password');
+    if(!findAdmin) return res.status(404).send('Not found');
+    return res.status(200).json(findAdmin)
+  } catch (error) {
+    return res.status(500).json({error})
+  }
+}
+
+// get users
+
+export async function getAllUsers (req, res) {
+  try {
+    const findUser = await Users.find().select('-password');
+    if (!findUser) return res.status(404).send('user not found')
+    return res.status(200).json(findUser)
+  } catch (error) {
+    return res.status(500).json({ error: error })
+  }
+
+}
+
 // updated admin
 
 export const updateAdmin = async (req, res) => {
   const {adminId} = req.user;
-  const {username, password} = req.body;
+  const body = req.body;
   try {
-    const findAdmin = await Admin.findById(adminId);
+    const findAdmin = await Admin.findOne({_id: adminId});
     if (!findAdmin) return res.status(404).send('Invalid Token')
-    const updatedAdmin = await Admin.findByIdAndUpdate(adminId, {username, password});
+      body.password = hashpassword(body.password)
+    const updatedAdmin = await Admin.findByIdAndUpdate(adminId, body);
   if(updatedAdmin) return res.status(201).send('updated successful')
       
   } catch (error) {
@@ -76,14 +103,39 @@ export const updateAdmin = async (req, res) => {
 
 export async function deleteUser (req, res) {
   const {id} = req.params;
+ try {
+  const findById = await Users.findById(id);
+  if(!findById) return res.status(400).send('user not found')
+    const deletedUser = await Users.findByIdAndDelete({_id: id});
+  if(deletedUser) return res.status(200).send('deleted Successful')
+ } catch (error) {
+  return res.status(500).json({error: error})
+ }
+}
+
+// get crime info
+
+export async function getCrime (req, res) {
   try {
-    const findById = findById(id);
-    if(!findById) return res.status(404).send('user not found');
-    await Users.findByIdAndDelete(id);
-    return res.status(200).send('deleted');
+    const allCrime = await Crimes.find();
+    if(!allCrime) return res.status(404).json('Crime not available')
+      return res.status(200).json(allCrime)
   } catch (error) {
-    return res.status(500).json({error})
+return res.status(500).json({error: error})
     
   }
-   
+}
+
+// get crim via id
+
+export async function getCrimeById (req, res) {
+  const {id} = req.params;
+  try {
+    const findCrimeById = await Crimes.findOne({_id: id});
+    if(!findCrimeById) return res.status(404).send('Crime Not Found');
+    return res.status(200).json(findCrimeById);
+  } catch (error) {
+    return res.status(500).json({error: error})
+    
+  }
 }

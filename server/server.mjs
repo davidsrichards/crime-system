@@ -12,7 +12,7 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 
 // connect to database
-mongoose.connect("mongodb://localhost:27017/Crime-sys").then(() =>{
+mongoose.connect(process.env.M0NGODB_URL_LOCAL).then(() =>{
     app.listen(PORT, () =>{
         console.log('Connected to DATABASE')
         console.log(`Server is listening at PORT ${PORT}`)

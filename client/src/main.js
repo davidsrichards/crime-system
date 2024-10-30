@@ -12,11 +12,12 @@ import SignUp from "./components/User/SignUp/SignUp.vue";
 import UserSignIn from "./components/User/SignIn/SignIn.vue";
 import AddCrime from "./components/User/Dashboard/Add-Crime/Add-Crime.vue";
 import UserProfile from './components/User/Dashboard/Profile/Profile.vue'
+import Profile from "./components/Admin/Dashboard/Profile/Profile.vue";
 import CrimeDetails from "./components/Admin/Dashboard/Manage-Crime/Crime-Details.vue";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { faEnvelope, faBell, faNewspaper, faUser, faPeopleRobbery, faStreetView, faSignOut } from '@fortawesome/free-solid-svg-icons';
-library.add(faEnvelope, faBell, faNewspaper, faUser, faPeopleRobbery, faStreetView, faSignOut);
+import { faEnvelope, faBell, faNewspaper, faUser, faPeopleRobbery, faStreetView, faSignOut, faEye, faEyeSlash, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
+library.add(faEnvelope, faBell, faNewspaper, faUser, faPeopleRobbery, faStreetView, faSignOut, faEye, faEyeSlash, faDeleteLeft);
 
 
 const routes = [
@@ -28,7 +29,9 @@ const routes = [
     children: [
       { path: "members", component: ManageMembers },
       { path: "crime", component: ManageCrime },
+      { path: "", component: ManageCrime },
       { path: "crime-details", component: CrimeDetails },
+      { path: "admin-profile", component: Profile },
     ],
   },
   { path: "/user-signup", component: SignUp },

@@ -1,7 +1,6 @@
 import { comparePassword, hashpassword } from "../../hashing/hashing.mjs";
 import Crimes from "../crime-schema/crime-schema.mjs";
 import Users from "./users-schema.mjs";
-import {validationResult, body, checkSchema, matchedData} from 'express-validator'
 
 // verify User
 
@@ -40,7 +39,7 @@ export async function userLogin(req, res) {
     const findUser = await Users.findOne({username});
     if(!findUser) return res.status(404).send('User not found');
         if(!comparePassword(password, findUser.password)) return res.status(401).send('Invalid Credentials');
-        return res.status(200).json(findUser.username)
+        return res.status(200).json(findUser)
     } catch (error) {
         return res.status(500).json({error: error});
     }
@@ -51,7 +50,7 @@ export async function userLogin(req, res) {
 export async function updateUser (req, res) {
     const {id} = req.params;
     const body = req.body;
-    if(!body.username || !body.password || !body.age) return res.status(403).send('provide username and password')
+    if(!body.username || !body.password) return res.status(403).send('provide username and password')
     try {
        const finById = await Users.findById(id);
        if(!finById) return res.status(404).send('Not found')
@@ -78,3 +77,18 @@ export async function reportCrime (req, res) {
     
    }
 }
+
+
+// get single user
+export async function getSingleUser (req, res) {
+    const {id} = req.params;
+    try {
+        const findUser = await Users.findOne({_id: id});
+        if(!findUser) return res.status(404).send('Not found')
+            return res.status(200).json(findUser)
+    } catch (error) {
+        return res.status(500).json(error)
+        
+    }
+}
+

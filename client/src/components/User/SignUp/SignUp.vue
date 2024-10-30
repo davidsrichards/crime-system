@@ -69,7 +69,8 @@
   </div>
 </template>
 <script>
-import axios from "axios";
+import api from "../../../../api";
+
 
 export default {
     data () {
@@ -82,8 +83,7 @@ export default {
   methods: {
     async handleSignIn() {
       try {
-        const  {data}  = await axios.post(
-        "http://localhost:4000/api/user/register", {username: this.username, password: this.password, age: this.age}
+        const  {data}  = await api.post("/user/register", {username: this.username, password: this.password, age: this.age}
       );
       if(data){
         this.$router.push('/')

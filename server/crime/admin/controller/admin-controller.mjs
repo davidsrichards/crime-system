@@ -85,13 +85,13 @@ export async function getAllUsers (req, res) {
 // updated admin
 
 export const updateAdmin = async (req, res) => {
-  const {adminId} = req.user;
+  const {id} = req.params
   const body = req.body;
   try {
-    const findAdmin = await Admin.findOne({_id: adminId});
-    if (!findAdmin) return res.status(404).send('Invalid Token')
+    const findAdmin = await Admin.findOne({_id: id});
+    if (!findAdmin) return res.status(404).send('Not found')
       body.password = hashpassword(body.password)
-    const updatedAdmin = await Admin.findByIdAndUpdate(adminId, body);
+    const updatedAdmin = await Admin.findByIdAndUpdate(id, body);
   if(updatedAdmin) return res.status(201).send('updated successful')
       
   } catch (error) {

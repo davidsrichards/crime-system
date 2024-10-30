@@ -4,6 +4,7 @@ import * as controller from './users-controller.mjs'
 const usersRout = Router();
 
 usersRout.route('/user/register').post(controller.registerUsers)
+usersRout.route('/user/get-single/:id').get(controller.getSingleUser)
 usersRout.route('/user/login').post(controller.userLogin)
 usersRout.route('/user/update/:id').put(controller.updateUser)
 usersRout.route('/user/report').post(controller.verifyUser, controller.reportCrime)

@@ -32,8 +32,7 @@
   </form>
 </template>
 <script>
-
-import axios from 'axios';
+import api from '../../../../../api';
 export default {
   data() {
     return {
@@ -51,7 +50,7 @@ export default {
     async sendReport() {
       const username = localStorage.getItem('user-name')
         try {
-          const {data} = await axios.post(`http://localhost:4000/api/user/report?username=${username}`, {address: this.address, description: this.description, contact: this.contact})
+          const {data} = await api.post(`/user/report?username=${username}`, {address: this.address, description: this.description, contact: this.contact})
           if(data){
             console.log(data)
           }

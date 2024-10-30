@@ -1,20 +1,11 @@
 <template>
   <div className="w-full">
     <div className="bg-[#fff] w-full p-4 flex items-center md:justify-between flex-wrap gap-4">
-      <select
-        v-model="selected"
-        name=""
-        id=""
-        className="max-w-md p-1 bg-[#e8eff9] px-6 rounded-sm"
-      >
-      <option value="" disabled selected>Search Street</option>
-        <option  v-for="(option, index) in crimes" :key="index" :value="option?.address?.street">{{ option?.address?.street }}</option>
-      </select>
       <div>
         <input
         v-model="inputSearch"
           type="text"
-          placeholder="Search"
+          placeholder="Search State"
           className="bg-primary p-1 rounded-l-md outline-none focus:ring-1 focus:ring-blue-400 border focus:outline-none"
         />
         <button @click="handleInputSearch()" className="bg-blue-400 p-[5.3px] rounded-r-md">Search</button>
@@ -52,13 +43,14 @@
   </div>
 </template>
 <script setup>
-import axios from 'axios';
-import { onMounted, ref, watch } from 'vue';
+import api from '../../../../../api';
+import { computed, onMounted, ref, watch } from 'vue';
 import {useRouter} from 'vue-router'
 const crimes = ref([])
 const inputSearch = ref("")
 const selected = ref("")
 const router = useRouter()
+const options = ref([])
 
 
 // hanlde input searchaStreetView
@@ -83,12 +75,13 @@ const getSingleCrime = async (index) =>{
  }
 }
 
+//
 
 
 onMounted(async() =>{
   try {
     const token = localStorage.getItem('token')
-    const {data} = await axios.get("http://localhost:4000/api/admin/get-all-crime", {headers: {Authorization: `Bearer ${token}`}});
+    const {data} = await api.get("/admin/get-all-crime", {headers: {Authorization: `Bearer ${token}`}});
    if(data){
     crimes.value = data
    }
@@ -98,16 +91,7 @@ onMounted(async() =>{
 
 })
 
-watch (selected, () =>{
-  if(selected.value){
-    console.log(selected.value)
-    const selectedCity = crimes.value.filter((crime) => crime.address.street.lastIndexOf(selected.value) !== -1);
-    if(selectedCity.length > 0){
-      console.log('selected is', selectedCity)
-      crimes.value = selectedCity
-    }
-  }
-})
+
 
 </script>
 <style lang="">

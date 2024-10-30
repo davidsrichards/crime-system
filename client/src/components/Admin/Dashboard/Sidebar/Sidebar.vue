@@ -3,9 +3,7 @@
         <ul>
             <GlobalSidebar title="Manage Members" to="/admin-dashboard/members" ic="user"/>
             <GlobalSidebar title="Manage Crime" to="/admin-dashboard/crime" ic="people-robbery"/>
-            <GlobalSidebar title="Manage News" ic="newspaper"/>
-            <GlobalSidebar title="Manage Enquiries" ic="newspaper"/>
-            <GlobalSidebar title="Manage Feedback" ic="newspaper"/>
+            <GlobalSidebar to="/admin-dashboard/admin-profile" title="Profile" ic="newspaper"/>
             <GlobalSidebar title="Log Out" to="/" ic="sign-out"/>
         </ul>
     </div>

@@ -27,13 +27,14 @@
 <script setup>
 import axios from "axios";
 import { onMounted, ref } from "vue";
+import api from "../../../../../api";
 
 // getting token from the local storage
 const token = localStorage.getItem("token");
 const username = ref("");
 const getUsername = async () => {
   try {
-    const { data } = await axios.get(`http://localhost:4000/api/admin/get`, {
+    const { data } = await api.get(`/admin/get`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     if (data) {

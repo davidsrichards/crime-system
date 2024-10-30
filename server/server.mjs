@@ -4,8 +4,11 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import morgan from 'morgan';
 import routes from './crime/crime.mjs';
+import path from 'path';
 dotenv.config()
-
+import {fileURLToPath} from 'url'
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 // defining the root
 
 const app = express();
@@ -28,8 +31,12 @@ app.use(morgan('tiny'))
 
 // defining routes
 
-
+app.use(express.static(path.join(__dirname, './client/dist')))
 app.use(routes)
+
+app.get("*", (req, res) =>{
+    res.sendFile(path.join(__dirname, './client/dist/index.html'))
+})
 app.get('/api/crime', (req, res) =>{
     res.send('Hello world')
 })

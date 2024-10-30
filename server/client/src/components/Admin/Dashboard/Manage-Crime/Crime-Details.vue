@@ -37,7 +37,6 @@
   <script setup>
   import { onMounted, ref } from 'vue';
   import {useRoute} from 'vue-router'
-  import 'vue-icons-plus';
 import axios from 'axios';
   const token = localStorage.getItem('token');
   
